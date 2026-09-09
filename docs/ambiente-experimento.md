@@ -47,8 +47,7 @@ integrantes e reprodutível por terceiros.
 ## 4. Convenção de diretórios dos trials
 
 Definida aqui para que o script de coleta de métricas estáticas (Issue #5) e
-o script de cronometragem (issue de S01 correspondente) leiam/gravem dados no
-mesmo lugar:
+o script de cronometragem (Issue #4) leiam/gravem dados no mesmo lugar:
 
 ```
 trials/
@@ -71,23 +70,27 @@ Exemplo: `trials/vitor/kata2_ai/src/`, `trials/vitor/kata2_ai/tests/`.
    ```bash
    pip install -r scripts/metrics/requirements.txt
    ```
-3. Instalar Node.js 18+ (necessário para `npx jscpd`, usado na detecção de
+3. Instalar as dependências do script de cronometragem:
+   ```bash
+   pip install -r scripts/timing/requirements.txt
+   ```
+4. Instalar Node.js 18+ (necessário para `npx jscpd`, usado na detecção de
    duplicação de código — equivalente ao PMD CPD para Python).
-4. Instalar e autenticar o Claude Code:
+5. Instalar e autenticar o Claude Code:
    ```bash
    npm install -g @anthropic-ai/claude-code
    claude login
    ```
-5. Instalar a extensão "Claude Code" no VS Code e confirmar login com a
+6. Instalar a extensão "Claude Code" no VS Code e confirmar login com a
    mesma conta Pro usada pelo grupo.
-6. Confirmar que nenhuma outra extensão de autocomplete com IA está ativa no
+7. Confirmar que nenhuma outra extensão de autocomplete com IA está ativa no
    VS Code.
 
 ## 6. Ferramentas de coleta
 
 | Métrica | Ferramenta | Observação |
 |---|---|---|
-| Tempo (time-to-green) | script de cronometragem (Issue de S01 correspondente) | fora do escopo desta issue |
-| Testes passando / falhando | `pytest` | testes de aceitação de cada kata |
+| Tempo (time-to-green) | script de cronometragem | ver `scripts/timing/` (Issue #4); time-box de 35 min, estouro registrado como censurado |
+| Testes passando / falhando | `pytest` | testes de aceitação de cada kata; usado pelo script de cronometragem para detectar o verde |
 | Complexidade ciclomática, LOC, Maintainability Index | Radon | ver `scripts/metrics/` (Issue #5) |
 | Duplicação de código | jscpd | ver `scripts/metrics/` (Issue #5) |
