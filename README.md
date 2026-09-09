@@ -1,4 +1,4 @@
-# Lab02 — Assistentes de IA vs. Codificação Manual
+# Lab02 Assistentes de IA vs. Codificação Manual
 
 Experimento controlado (crossover within-subject) comparando o uso de
 assistente de IA (Claude Code) e codificação manual, em relação a tempo de
