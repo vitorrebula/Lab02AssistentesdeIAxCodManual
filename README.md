@@ -11,10 +11,14 @@ docs/
   ambiente-experimento.md   # Issue #6 — linguagem, IDE, assistente de IA, convenções
 scripts/
   metrics/                  # Issue #5 — coleta de métricas estáticas (Radon + jscpd)
+  timing/                   # Issue #4 — cronometragem do time-to-green (time-box 35 min)
 trials/
-  <participante>/<kata>_<ai|manual>/src/   # código de cada trial (S02)
+  <participante>/<kata>_<ai|manual>/
+    src/                    # código de cada trial (S02)
+    tests/                  # testes de aceitação da kata
 results/
-  static_metrics.csv        # saída consolidada do script de métricas (gerado)
+  static_metrics.csv        # saída do script de métricas (gerado)
+  timing.json / timing.csv  # saída do script de cronometragem (gerado)
 ```
 
 ## Ambiente
@@ -22,6 +26,19 @@ results/
 Ver [docs/ambiente-experimento.md](docs/ambiente-experimento.md): Python
 3.10+, VS Code, Claude Code (Claude Pro) como assistente de IA fixo para
 todos os trials.
+
+## Cronometragem (time-to-green)
+
+Ver [scripts/timing/README.md](scripts/timing/README.md). Cronometra cada
+trial até todos os testes de aceitação passarem, com time-box fixo de
+35 minutos; trials que estouram o tempo são registrados como **censurados em
+35 min** (nunca descartados). Saída em `results/timing.json` +
+`results/timing.csv`.
+
+```bash
+python scripts/timing/track_time.py start --participant vitor --kata kata2 --treatment ai
+python scripts/timing/track_time.py green
+```
 
 ## Métricas estáticas
 
