@@ -8,6 +8,7 @@ resolução, defeitos e qualidade estrutural do código, em katas Python.
 
 ```
 docs/
+  desenho-experimento.md    # Issue #1 — RQs, hipóteses H0/H1, variáveis, desenho crossover
   ambiente-experimento.md   # Issue #6 — linguagem, IDE, assistente de IA, convenções
 scripts/
   metrics/                  # Issue #5 — coleta de métricas estáticas (Radon + jscpd)
@@ -20,6 +21,14 @@ results/
   static_metrics.csv        # saída do script de métricas (gerado)
   timing.json / timing.csv  # saída do script de cronometragem (gerado)
 ```
+
+## Desenho do experimento
+
+Ver [docs/desenho-experimento.md](docs/desenho-experimento.md): questões de
+pesquisa, hipóteses H0/H1 das três RQs (tempo, defeitos, estrutura),
+variáveis independente/dependentes/controladas e o desenho **crossover
+within-subject contrabalanceado** (quadrado latino 2×2), além da análise
+estatística planejada e das ameaças à validade.
 
 ## Ambiente
 

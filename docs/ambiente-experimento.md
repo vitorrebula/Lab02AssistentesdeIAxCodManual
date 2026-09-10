@@ -41,8 +41,8 @@ integrantes e reprodutível por terceiros.
 - **Ameaça à validade associada:** familiaridade prévia de cada integrante
   com o Claude Code. Antes da execução (Passo 3), cada integrante deve
   declarar seu nível de experiência prévio com a ferramenta (nenhum / básico
-  / avançado) no Desenho do Experimento, para que essa variável possa ser
-  discutida na análise.
+  / avançado), para que essa variável possa ser discutida na análise — ver
+  [desenho-experimento.md](desenho-experimento.md), seção 4.4.
 
 ## 4. Convenção de diretórios dos trials
 
