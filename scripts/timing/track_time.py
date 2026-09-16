@@ -130,7 +130,8 @@ def run_pytest(trial_root, tests_dir):
     env["PYTHONPATH"] = os.pathsep.join(extra)
 
     cmd = [sys.executable, "-m", "pytest", str(tests_dir.resolve()),
-           "-q", "--no-header", "-p", "no:cacheprovider"]
+           "-q", "--no-header", "-p", "no:cacheprovider",
+           "-o", "python_files=test_*.py teste_*.py *_test.py"]
     proc = subprocess.run(cmd, cwd=trial_root, env=env, capture_output=True, text=True)
 
     counts = {"passed": 0, "failed": 0}
