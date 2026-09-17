@@ -77,7 +77,7 @@ def find_npx():
 def jscpd_duplication(src_dir: Path):
     npx = find_npx()
     if npx is None:
-        print("aviso: npx/jscpd nao encontrado (instale Node.js); duplicacao=0.0", file=sys.stderr)
+        print("aviso: npx nao encontrado (instale Node.js); duplicacao=0.0", file=sys.stderr)
         return 0.0
     with tempfile.TemporaryDirectory() as tmp:
         cmd = [
