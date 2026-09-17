@@ -1,4 +1,5 @@
 participant,kata,treatment,started_at,ended_at,elapsed_s,elapsed_min,time_to_green_s,time_to_green_min,censored,event,status,timebox_s,tests_passed,tests_failed,notes,recorded_at
+rafael,kata5,ai,2026-09-17T01:47:07+00:00,2026-09-17T01:47:27+00:00,17.0,0.28,17.0,0.28,False,1,green,2100,12,0,"COM IA - Claude Code (Opus 5, 1M context), 1 prompt de implementacao a partir do enunciado; ver trials/rafael/kata5_ai/PROMPTS.md",2026-09-17T01:47:27+00:00
 vitor,kata1,ai,2026-09-16T14:51:09+00:00,2026-09-16T14:52:20+00:00,70.0,1.17,70.0,1.17,False,1,green,2100,12,0,"COM IA - Claude Code, 1 prompt (implementar a partir do enunciado, sem consultar solucao_referencia.py)",2026-09-16T14:52:20+00:00
 vitor,kata2,ai,2026-09-16T14:52:29+00:00,2026-09-16T14:52:41+00:00,12.0,0.2,12.0,0.2,False,1,green,2100,10,0,"COM IA - Claude Code, 1 prompt (implementar a partir do enunciado, sem consultar solucao_referencia.py)",2026-09-16T14:52:41+00:00
 vitor,kata3,ai,2026-09-16T14:52:53+00:00,2026-09-16T14:53:01+00:00,8.0,0.13,8.0,0.13,False,1,green,2100,11,0,"COM IA - Claude Code, 1 prompt (implementar a partir do enunciado, sem consultar solucao_referencia.py)",2026-09-16T14:53:01+00:00
