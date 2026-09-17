@@ -9,6 +9,7 @@ import argparse
 import csv
 import json
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -68,10 +69,19 @@ def radon_metrics(src_dir: Path):
     }
 
 
+def find_npx():
+    """Caminho do npx; no Windows o executavel e npx.cmd, que o subprocess nao resolve sozinho."""
+    return shutil.which("npx") or shutil.which("npx.cmd")
+
+
 def jscpd_duplication(src_dir: Path):
+    npx = find_npx()
+    if npx is None:
+        print("aviso: npx/jscpd nao encontrado (instale Node.js); duplicacao=0.0", file=sys.stderr)
+        return 0.0
     with tempfile.TemporaryDirectory() as tmp:
         cmd = [
-            "npx", "--yes", "jscpd", str(src_dir),
+            npx, "--yes", "jscpd", str(src_dir),
             "--reporters", "json",
             "--output", tmp,
             "--min-lines", "5",

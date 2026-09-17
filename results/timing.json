@@ -1,5 +1,24 @@
 [
   {
+    "participant": "rafael",
+    "kata": "kata1",
+    "treatment": "ai",
+    "started_at": "2026-09-17T02:10:55+00:00",
+    "ended_at": "2026-09-17T02:11:09+00:00",
+    "elapsed_s": 12.0,
+    "elapsed_min": 0.2,
+    "time_to_green_s": 12.0,
+    "time_to_green_min": 0.2,
+    "censored": false,
+    "event": 1,
+    "status": "green",
+    "timebox_s": 2100,
+    "tests_passed": 12,
+    "tests_failed": 0,
+    "notes": "COM IA - Claude Code (Opus 5), 1 prompt (issue #23: implementar Kata A a partir do enunciado, sem consultar solucao_referencia.py nem solucoes de outros integrantes)",
+    "recorded_at": "2026-09-17T02:11:09+00:00"
+  },
+  {
     "participant": "vitor",
     "kata": "kata1",
     "treatment": "ai",
