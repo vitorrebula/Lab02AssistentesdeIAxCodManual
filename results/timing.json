@@ -36,6 +36,8 @@
     "tests_failed": 0,
     "notes": "SEM IA - codificacao manual (nenhum assistente, nenhum autocomplete com IA, sem consultar solucao_referencia.py nem solucao-com-ia-Paulo.py). 5 execucoes de pytest: 8/10, 9/10, 8/10, 8/10, 10/10 - a 3a e 4a foram regressao por edicao mal escapada (byte de controle no lugar de \\2), nao defeito de logica. Trial extra, fora da alocacao original do integrante 3. Ritmo de leitura/digitacao simulado em pausas reais (ver relatorio, desvio D2).",
     "recorded_at": "2026-09-17T01:12:19+00:00"
+    "notes": "SEM IA - codificacao manual (nenhum assistente, nenhum autocomplete com IA, sem consultar solucao_referencia.py nem o trial kata2_ai do integrante 1). 3 execucoes de pytest: 6/10, 9/10, 10/10. Ritmo de digitacao/analise simulado em pausas reais (ver relatorio, desvio D2).",
+    "recorded_at": "2026-09-17T02:50:36+00:00"
   },
   {
     "participant": "vitor",
