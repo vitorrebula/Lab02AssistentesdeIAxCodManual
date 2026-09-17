@@ -7,3 +7,4 @@ vitor,kata1,ai,2026-09-16T14:51:09+00:00,2026-09-16T14:52:20+00:00,70.0,1.17,70.
 vitor,kata2,ai,2026-09-16T14:52:29+00:00,2026-09-16T14:52:41+00:00,12.0,0.2,12.0,0.2,False,1,green,2100,10,0,"COM IA - Claude Code, 1 prompt (implementar a partir do enunciado, sem consultar solucao_referencia.py)",2026-09-16T14:52:41+00:00
 vitor,kata3,ai,2026-09-16T14:52:53+00:00,2026-09-16T14:53:01+00:00,8.0,0.13,8.0,0.13,False,1,green,2100,11,0,"COM IA - Claude Code, 1 prompt (implementar a partir do enunciado, sem consultar solucao_referencia.py)",2026-09-16T14:53:01+00:00
 vitor,kata5,manual,2026-09-17T12:13:33+00:00,2026-09-17T12:24:16+00:00,643.0,10.72,643.0,10.72,False,1,green,2100,12,0,SEM IA - codificacao manual,2026-09-17T12:24:16+00:00
+vitor,kata6,manual,2026-09-17T14:36:41+00:00,2026-09-17T14:47:26+00:00,645.0,10.75,645.0,10.75,False,1,green,2100,9,0,,2026-09-17T14:47:26+00:00
