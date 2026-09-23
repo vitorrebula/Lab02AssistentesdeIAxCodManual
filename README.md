@@ -13,6 +13,7 @@ docs/
 scripts/
   metrics/                  # Issue #5 — coleta de métricas estáticas (Radon + jscpd)
   timing/                   # Issue #4 — cronometragem do time-to-green (time-box 35 min)
+  dashboard/                # Issue #48 — pipeline de carga/consolidação + notebook do dashboard
 trials/
   <participante>/<kata>_<ai|manual>/
     src/                    # código de cada trial (S02)
@@ -20,6 +21,8 @@ trials/
 results/
   static_metrics.csv        # saída do script de métricas (gerado)
   timing.json / timing.csv  # saída do script de cronometragem (gerado)
+  dashboard_dataset.csv     # dataset único do dashboard, um trial por linha (gerado)
+  dashboard_paired.csv      # mesmo dataset pareado por integrante (gerado)
 ```
 
 ## Desenho do experimento
@@ -54,3 +57,23 @@ python scripts/timing/track_time.py green
 Ver [scripts/metrics/README.md](scripts/metrics/README.md) para instalar e
 rodar a coleta de complexidade ciclomática, LOC, Maintainability Index
 (Radon) e duplicação de código (jscpd) sobre o código final de cada trial.
+
+## Dashboard: carga e consolidação dos dados
+
+Ver [scripts/dashboard/README.md](scripts/dashboard/README.md). Junta tempo,
+taxa de sucesso e métricas estáticas em um DataFrame único (chave
+`participant` + `kata` + `treatment`), pronto para os gráficos e os testes
+estatísticos. Usa o consolidado da Issue #44 quando ele existir e, enquanto
+não existir, monta o dataset a partir de `results/timing.json` +
+`results/static_metrics.csv`.
+
+```bash
+pip install -r scripts/dashboard/requirements.txt
+python scripts/dashboard/load_data.py \
+  --output results/dashboard_dataset.csv \
+  --paired-output results/dashboard_paired.csv
+```
+
+O notebook [scripts/dashboard/dashboard.ipynb](scripts/dashboard/dashboard.ipynb)
+faz essa carga e organiza as seções RQ1/RQ2/RQ3; os gráficos (#49) e os testes
+estatísticos (#45/#46/#47) estão como esqueleto marcado com `TODO`.
