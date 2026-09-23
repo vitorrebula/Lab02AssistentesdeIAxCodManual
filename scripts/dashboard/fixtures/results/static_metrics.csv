@@ -1,0 +1,5 @@
+participant,kata,treatment,files,loc,sloc,cc_avg,cc_total,mi_avg,duplication_pct,collected_at
+exemplo_um,kata0,ai,1,40,30,3.0,12,70.5,0.0,2026-01-10T12:00:00+00:00
+exemplo_um,kata9,manual,1,55,41,4.5,18,64.0,5.2,2026-01-10T12:00:00+00:00
+exemplo_dois,kata0,manual,1,38,29,2.5,10,75.0,0.0,2026-01-10T12:00:00+00:00
+exemplo_dois,kata7,ai,1,22,18,2.0,6,80.0,0.0,2026-01-10T12:00:00+00:00
