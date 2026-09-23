@@ -164,3 +164,7 @@ Goal do GQM propõe medir.
 | 2 | Familiaridade prévia com a ferramenta de IA | Interna / Externa | Questionário de autoavaliação + análise estratificada |
 | 3 | Vazamento de solução já vista (dentro da sessão) | Interna | Kata resolvida uma única vez; conversa de IA sem histórico prévio |
 | 4 | Memorização (solução vista no treinamento do modelo) | Construto | Katas 100% autorais, não indexadas publicamente |
+
+## Limitação dos tempos registrados
+
+Os quatro tempos de Paulo foram digitados manualmente, sem registro de início e fim pelo cronômetro do experimento. Não há linhas correspondentes em `results/timing.csv`; esses tempos são ausentes para análise quantitativa de RQ1. O registro de Rafael em `kata2_manual` foi perdido e reconstituído de memória, conforme a observação na linha correspondente de `results/timing.csv`. Sua precisão não pode ser verificada. O relatório final deve identificar a proveniência, excluir Paulo da comparação quantitativa de tempo e apresentar análise de sensibilidade de RQ1 com e sem o trial reconstituído de Rafael. Não inferir efeito causal dos tempos declarados.
