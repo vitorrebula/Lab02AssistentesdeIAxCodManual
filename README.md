@@ -54,3 +54,10 @@ python scripts/timing/track_time.py green
 Ver [scripts/metrics/README.md](scripts/metrics/README.md) para instalar e
 rodar a coleta de complexidade ciclomática, LOC, Maintainability Index
 (Radon) e duplicação de código (jscpd) sobre o código final de cada trial.
+
+## Análise da RQ3
+
+Ver [docs/analise-rq3.md](docs/analise-rq3.md) para a comparação entre
+tratamentos, normalização por LOC, mediana/IQR, Wilcoxon pareado e limitações.
+Para reproduzir os cálculos: `python -m pip install -r scripts/analysis/requirements.txt`
+e `python scripts/analysis/rq3.py`.
