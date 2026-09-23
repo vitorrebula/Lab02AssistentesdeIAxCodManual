@@ -1,0 +1,5 @@
+integrante,kata,tratamento,campo,valor,limite_inferior,limite_superior,criterio,decisao,justificativa
+rafael,kata2,sem IA,tempo_min,8.1167,10.6250,10.8250,Tukey 1.5xIQR por tratamento; apenas tempos nao derivados,manter_sinalizado,Amostra pequena e katas distintas; nao excluir somente pelo criterio estatistico.
+vitor,kata1,com IA,tempo_min,1.1667,0.0751,0.4083,Tukey 1.5xIQR por tratamento; apenas tempos nao derivados,manter_sinalizado,Amostra pequena e katas distintas; nao excluir somente pelo criterio estatistico.
+vitor,kata4,sem IA,duracao_vs_horarios_s,1208 vs 56916,,,"diferenca > max(5 s, 1% do tempo registrado)",manter_sinalizado_verificar_origem,Divergencia dos horarios brutos; preservar elapsed_s e solicitar verificacao antes da analise temporal.
+vitor,kata4,sem IA,tempo_min,20.1333,10.6250,10.8250,Tukey 1.5xIQR por tratamento; apenas tempos nao derivados,manter_sinalizado,Amostra pequena e katas distintas; nao excluir somente pelo criterio estatistico.

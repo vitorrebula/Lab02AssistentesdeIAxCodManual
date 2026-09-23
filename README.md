@@ -61,3 +61,10 @@ Ver [docs/analise-rq3.md](docs/analise-rq3.md) para a comparação entre
 tratamentos, normalização por LOC, mediana/IQR, Wilcoxon pareado e limitações.
 Para reproduzir os cálculos: `python -m pip install -r scripts/analysis/requirements.txt`
 e `python scripts/analysis/rq3.py`.
+
+## Consolidação e revisão da S02
+
+Execute `python scripts/analysis/consolidate_s02.py` para gerar
+`dados/consolidado.csv` e `dados/outliers.csv` a partir dos registros brutos.
+A cobertura, a proveniência dos tempos, a censura e as decisões sobre cada
+outlier estão em [docs/revisao-dados-s02.md](docs/revisao-dados-s02.md).
