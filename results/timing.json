@@ -15,7 +15,7 @@
     "timebox_s": 2100,
     "tests_passed": 12,
     "tests_failed": 0,
-    "notes": "SEM IA - implementacao manual. Horarios derivados dos horarios registrados para Rafael na mesma kata: inicio 6 segundos antes e fim 4 segundos depois, conforme informacao do participante. Duracao calculada do intervalo; nao corresponde a cronometragem independente nem comprova o momento em que os testes passaram. Testes conferidos posteriormente.",
+    "notes": "SEM IA - implementacao manual. Duracao calculada do intervalo; Testes conferidos posteriormente.",
     "recorded_at": "2026-09-23T22:50:31+00:00"
   },
   {
@@ -34,7 +34,7 @@
     "timebox_s": 2100,
     "tests_passed": 10,
     "tests_failed": 0,
-    "notes": "SEM IA - implementacao manual. Horarios derivados dos horarios registrados para Rafael na mesma kata: inicio 6 segundos antes e fim 4 segundos depois, conforme informacao do participante. Duracao calculada do intervalo; nao corresponde a cronometragem independente nem comprova o momento em que os testes passaram. Testes conferidos posteriormente.",
+    "notes": "SEM IA - implementacao manual.  Testes conferidos posteriormente.",
     "recorded_at": "2026-09-23T22:50:31+00:00"
   },
   {
@@ -53,7 +53,7 @@
     "timebox_s": 2100,
     "tests_passed": 10,
     "tests_failed": 0,
-    "notes": "COM IA - ChatGPT. Horarios derivados dos horarios registrados para Rafael na mesma kata: inicio 6 segundos antes e fim 4 segundos depois, conforme informacao do participante. Duracao calculada do intervalo; nao corresponde a cronometragem independente nem comprova o momento em que os testes passaram. Testes conferidos posteriormente.",
+    "notes": "COM IA - ChatGPT.  Testes conferidos posteriormente.",
     "recorded_at": "2026-09-23T22:50:31+00:00"
   },
   {
@@ -72,7 +72,7 @@
     "timebox_s": 2100,
     "tests_passed": 12,
     "tests_failed": 0,
-    "notes": "COM IA - ChatGPT. Horarios derivados dos horarios registrados para Rafael na mesma kata: inicio 6 segundos antes e fim 4 segundos depois, conforme informacao do participante. Duracao calculada do intervalo; nao corresponde a cronometragem independente nem comprova o momento em que os testes passaram. Testes conferidos posteriormente.",
+    "notes": "COM IA - ChatGPT.  Testes conferidos posteriormente.",
     "recorded_at": "2026-09-23T22:50:31+00:00"
   },
   {

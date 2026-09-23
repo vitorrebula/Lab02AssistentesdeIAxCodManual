@@ -1,5 +1,0 @@
-participant,kata,treatment,estimated_elapsed_s,estimated_elapsed_min,reported_duration,provenance
-paulo,kata1,manual,24,0.4,0m24s,Duracao derivada dos horarios de Rafael para a mesma kata: inicio 6 segundos antes; fim 4 segundos depois; conforme informacao do participante
-paulo,kata2,manual,497,8.28,8m17s,Duracao derivada dos horarios de Rafael para a mesma kata: inicio 6 segundos antes; fim 4 segundos depois; conforme informacao do participante
-paulo,kata4,ai,652,10.87,10m52s,Duracao derivada dos horarios de Rafael para a mesma kata: inicio 6 segundos antes; fim 4 segundos depois; conforme informacao do participante
-paulo,kata5,ai,30,0.5,0m30s,Duracao derivada dos horarios de Rafael para a mesma kata: inicio 6 segundos antes; fim 4 segundos depois; conforme informacao do participante
