@@ -1,0 +1,5 @@
+integrante,kata,tratamento,tempo,censurado,testes_passando,testes_total
+exemplo_um,kata0,com_ia,5.0,False,10,10
+exemplo_um,kata9,sem_ia,35.0,True,7,10
+exemplo_dois,kata0,sem_ia,12.0,False,10,10
+exemplo_dois,kata9,com_ia,3.0,False,10,10
