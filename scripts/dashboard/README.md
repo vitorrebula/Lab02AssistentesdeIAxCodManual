@@ -1,9 +1,14 @@
-# Pipeline de importação e consolidação para o dashboard
+# Pipeline de importação, consolidação e gráficos do dashboard
 
 Refs #48 — carga dos dados do experimento com Pandas: junta **tempo**,
 **taxa de sucesso** e **métricas estáticas** em um DataFrame único (uma linha
-por trial), pronto para plotagem (#49) e para os testes estatísticos
+por trial), pronto para plotagem e para os testes estatísticos
 (#45, #46, #47).
+
+Refs #49 — [`plots.py`](plots.py) gera as figuras por RQ a partir desse
+DataFrame (boxplots de mediana/IQR, gráfico de pares por integrante, barras de
+taxa de sucesso), exportadas em PNG para `results/figures/` e prontas para
+entrar no Relatório Final. Ver [Gráficos por RQ](#gráficos-por-rq-issue-49).
 
 Toda a importação é reprodutível: os caminhos são relativos à raiz do
 repositório (inferida a partir da localização do script), nenhum dado está
@@ -76,9 +81,77 @@ print(describe_dataset(df))   # colunas, tipos, não-nulos
 pares = build_paired_frame(df)  # um integrante por linha (manual/ai/diff)
 ```
 
-O notebook [`dashboard.ipynb`](dashboard.ipynb) já faz essa carga e organiza as
-seções RQ1/RQ2/RQ3 — os gráficos e testes estatísticos estão marcados como
-`TODO(#49)` / `TODO(#45|#46|#47)` para as issues seguintes.
+O notebook [`dashboard.ipynb`](dashboard.ipynb) já faz essa carga, organiza as
+seções RQ1/RQ2/RQ3 e **renderiza as figuras da #49** (também gravadas em
+`results/figures/`); só os testes estatísticos seguem marcados como
+`TODO(#45|#46|#47)`.
+
+## Gráficos por RQ (issue #49)
+
+`plots.py` consome o `build_dataset()` acima — nenhum número é digitado no
+módulo — e produz um arquivo PNG por figura.
+
+```bash
+# grava todas as figuras em results/figures/
+python scripts/dashboard/plots.py
+
+# outro destino, outra resolução/formato
+python scripts/dashboard/plots.py --fig-dir /tmp/figs --dpi 300 --format pdf
+```
+
+Flags: `--fig-dir`, `--dpi`, `--format {png,pdf,svg}`, `--agg`
+(agregador dos trials de um integrante no gráfico de pares), `--repo-root`,
+`--quiet`.
+
+| figura | conteúdo | RQ |
+|---|---|---|
+| `rq1_time_to_green.png` | (a) boxplot de `time_to_green_min` por tratamento + (b) pares por integrante | RQ1 |
+| `rq2_taxa_sucesso.png` | (a) barras de taxa de sucesso + (b) boxplot de `pct_tests_passing` | RQ2 |
+| `rq3_estrutura.png` | painel único com `cc_avg`, `duplication_pct` e `loc` | RQ3 (H3a/H3b/H3c) |
+| `rq3_cc_avg.png` · `rq3_duplication_pct.png` · `rq3_loc.png` | uma figura por métrica: boxplot + pares por integrante | RQ3 |
+
+Como módulo (é o que o notebook faz):
+
+```python
+from plots import figure_rq1, figure_rq2, figure_rq3_overview, export_all, save_figure
+
+fig = figure_rq1(df)                                  # matplotlib Figure
+save_figure(fig, FIG_DIR / "rq1_time_to_green.png")   # PNG para o relatório
+export_all(df, FIG_DIR)                               # todas de uma vez
+```
+
+Blocos reutilizáveis: `boxplot_by_treatment(ax, df, metric)`,
+`paired_panel(ax, df, metric)` e `success_rate_panel(ax, df)` — qualquer
+métrica do dataset pode ganhar figura sem duplicar estilo.
+
+### Convenções de leitura das figuras
+
+Decisões de representação, para que a figura não diga mais do que o dado
+suporta:
+
+- **Caixa = IQR (Q1–Q3), linha = mediana, hastes = mínimo e máximo.** As
+  hastes vão até os extremos (`whis=(0,100)`) e não há *fliers* escondidos:
+  **todos os trials aparecem como pontos** sobre a caixa (jitter determinístico,
+  semente fixa). Com n = 4 por tratamento, esconder ponto seria perder o dado.
+- **Mediana rotulada na figura; IQR e n no rótulo do eixo x** — os descritivos
+  declarados na §7 do desenho ficam legíveis sem consultar tabela.
+- **Censura sinalizada.** No gráfico de tempo, trial censurado sai como
+  **triângulo vazado** (não como ponto) na altura do time-box, a linha de
+  referência dos 35 min entra no eixo e a contagem de censurados aparece sob
+  cada tratamento. Sem censura na amostra, o eixo **não** é esticado até 35 min
+  (achataria os tempos observados) e a figura diz isso em texto, com o máximo
+  observado.
+- **Gráfico de pares em todas as figuras de RQ1/RQ3**, porque a unidade de
+  análise do desenho crossover é o integrante (§5) — os trials de um integrante
+  são agregados pela mediana (`--agg`).
+- **Duas cores só**, uma por tratamento (azul = sem IA, laranja = com IA),
+  validadas para daltonismo (ΔE CVD 24,7); identidade também pela posição no
+  eixo e pela legenda, nunca só pela cor.
+- **Métrica sem variação** (ex.: `duplication_pct` = 0 em todos os trials) é
+  desenhada e **anotada como tal**, em vez de omitida.
+- Cada figura carrega título, subtítulo com a convenção de leitura, nota de
+  fonte (`results/dashboard_dataset.csv`) e a issue do teste estatístico
+  correspondente — são autocontidas para colar no relatório.
 
 ## DataFrame principal (`build_dataset`)
 
@@ -160,6 +233,7 @@ apenas lista o que precisa de decisão documentada na #44:
 |---|---|
 | `results/dashboard_dataset.csv` | DataFrame principal (um trial por linha) |
 | `results/dashboard_paired.csv` | formato pareado por integrante |
+| `results/figures/*.png` | figuras por RQ (`plots.py`, issue #49) |
 
 Os dois são **gerados** — a fonte da verdade continua sendo `results/timing.json`,
 `results/static_metrics.csv` e (quando existir) o consolidado da #44.
@@ -185,7 +259,8 @@ Esperado nos dois casos: 5 trials, `manual` com 1 censurado e taxa de sucesso
 ## Pendências das próximas issues
 
 - **#44** — gerar `dados/consolidado.csv` e registrar as decisões de outlier;
-  quando existir, este pipeline passa a usá-lo sem alteração de código.
-- **#45/#46/#47** — preencher os testes estatísticos nas seções do notebook.
-- **#49** — gráficos por RQ, exportados em `results/figures/`.
+  quando existir, este pipeline passa a usá-lo sem alteração de código (e as
+  figuras acompanham, porque saem do mesmo `build_dataset()`).
+- **#45/#46/#47** — preencher os testes estatísticos nas seções do notebook;
+  p-valor e tamanho de efeito entram como anotação nas figuras existentes.
 - **#50** — dashboard final + README de reprodução de ponta a ponta.
