@@ -1,0 +1,5 @@
+participant,kata,treatment,estimated_elapsed_s,estimated_elapsed_min,reported_duration,provenance
+paulo,kata1,manual,225,3.75,3m45s,Estimativa declarada no relatorio anterior; sem cronometragem verificavel; condicoes de kata1 e kata5 corrigidas pelos arquivos
+paulo,kata2,manual,1160,19.33,19m20s,Estimativa declarada no relatorio anterior; sem cronometragem verificavel; condicoes de kata1 e kata5 corrigidas pelos arquivos
+paulo,kata4,ai,310,5.17,5m10s,Estimativa declarada no relatorio anterior; sem cronometragem verificavel; condicoes de kata1 e kata5 corrigidas pelos arquivos
+paulo,kata5,ai,1455,24.25,24m15s,Estimativa declarada no relatorio anterior; sem cronometragem verificavel; condicoes de kata1 e kata5 corrigidas pelos arquivos
