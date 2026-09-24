@@ -1,0 +1,11 @@
+# Pipeline de importacao/consolidacao (issue #48)
+pandas>=2.0.0
+
+# Notebook do dashboard (issues #49 e #50)
+matplotlib>=3.7.0
+jupyterlab>=4.0.0
+
+# Necessarios apenas quando as issues de analise forem implementadas (#45/#46/#47):
+#   scipy>=1.11        -> Wilcoxon signed-rank, Shapiro-Wilk, teste t pareado
+#   statsmodels>=0.14  -> teste de McNemar (RQ2), correcao de Holm-Bonferroni
+#   lifelines>=0.27    -> Kaplan-Meier e log-rank com censura em 35 min (RQ1)
