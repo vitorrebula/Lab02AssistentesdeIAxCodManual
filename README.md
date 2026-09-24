@@ -68,3 +68,10 @@ Execute `python scripts/analysis/consolidate_s02.py` para gerar
 `dados/consolidado.csv` e `dados/outliers.csv` a partir dos registros brutos.
 A cobertura, a proveniência dos tempos, a censura e as decisões sobre cada
 outlier estão em [docs/revisao-dados-s02.md](docs/revisao-dados-s02.md).
+
+## Análise da RQ1
+
+A comparação de tempo até o verde, o pareamento por integrante, o Wilcoxon e
+o tratamento de censura estão em [docs/analise-rq1.md](docs/analise-rq1.md).
+Execute `python scripts/analysis/rq1.py` para reproduzir os resultados em
+`dados/rq1_resultados.json`.
