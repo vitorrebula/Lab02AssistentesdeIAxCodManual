@@ -1,0 +1,237 @@
+{
+  "questao": "RQ3 -- o uso de assistente de IA altera a qualidade estrutural do codigo (complexidade, duplicacao, tamanho)?",
+  "n_trials": 14,
+  "n_participantes": 3,
+  "familia_primaria": [
+    "cc_avg",
+    "duplication_pct",
+    "loc"
+  ],
+  "metricas": {
+    "cc_avg": {
+      "rotulo": "CC media por funcao",
+      "descritivos": {
+        "manual": {
+          "n": 7,
+          "mediana": 3.6,
+          "q1": 2.625,
+          "q3": 6.5,
+          "iqr": 3.875
+        },
+        "ai": {
+          "n": 7,
+          "mediana": 2.6,
+          "q1": 2.5,
+          "q3": 5.0,
+          "iqr": 2.5
+        }
+      },
+      "pares": [
+        {
+          "participante": "paulo",
+          "manual": 5.3,
+          "ai": 2.5,
+          "diferenca_ia_menos_manual": -2.8
+        },
+        {
+          "participante": "rafael",
+          "manual": 5.0,
+          "ai": 2.55,
+          "diferenca_ia_menos_manual": -2.45
+        },
+        {
+          "participante": "vitor",
+          "manual": 2.75,
+          "ai": 7.0,
+          "diferenca_ia_menos_manual": 4.25
+        }
+      ],
+      "wilcoxon": {
+        "W": 3.0,
+        "p": 1.0,
+        "n_pares": 3,
+        "r_rank_biserial": 0.0
+      }
+    },
+    "cc_per_100_loc": {
+      "rotulo": "CC total / 100 LOC",
+      "descritivos": {
+        "manual": {
+          "n": 7,
+          "mediana": 23.5294,
+          "q1": 21.0084,
+          "q3": 25.6347,
+          "iqr": 4.6263
+        },
+        "ai": {
+          "n": 7,
+          "mediana": 34.8837,
+          "q1": 17.7737,
+          "q3": 42.3274,
+          "iqr": 24.5537
+        }
+      },
+      "pares": [
+        {
+          "participante": "paulo",
+          "manual": 34.6184,
+          "ai": 10.663,
+          "diferenca_ia_menos_manual": -23.9554
+        },
+        {
+          "participante": "rafael",
+          "manual": 23.8859,
+          "ai": 32.7561,
+          "diferenca_ia_menos_manual": 8.8702
+        },
+        {
+          "participante": "vitor",
+          "manual": 21.4286,
+          "ai": 41.1765,
+          "diferenca_ia_menos_manual": 19.7479
+        }
+      ],
+      "wilcoxon": {
+        "W": 3.0,
+        "p": 1.0,
+        "n_pares": 3,
+        "r_rank_biserial": 0.0
+      }
+    },
+    "duplication_pct": {
+      "rotulo": "Linhas duplicadas (%)",
+      "descritivos": {
+        "manual": {
+          "n": 7,
+          "mediana": 0.0,
+          "q1": 0.0,
+          "q3": 0.0,
+          "iqr": 0.0
+        },
+        "ai": {
+          "n": 7,
+          "mediana": 0.0,
+          "q1": 0.0,
+          "q3": 0.0,
+          "iqr": 0.0
+        }
+      },
+      "pares": [
+        {
+          "participante": "paulo",
+          "manual": 0.0,
+          "ai": 0.0,
+          "diferenca_ia_menos_manual": 0.0
+        },
+        {
+          "participante": "rafael",
+          "manual": 0.0,
+          "ai": 0.0,
+          "diferenca_ia_menos_manual": 0.0
+        },
+        {
+          "participante": "vitor",
+          "manual": 0.0,
+          "ai": 0.0,
+          "diferenca_ia_menos_manual": 0.0
+        }
+      ],
+      "wilcoxon": null,
+      "wilcoxon_obs": "nao aplicavel: diferencas nulas ou pares insuficientes"
+    },
+    "loc": {
+      "rotulo": "LOC",
+      "descritivos": {
+        "manual": {
+          "n": 7,
+          "mediana": 34.0,
+          "q1": 30.5,
+          "q3": 37.0,
+          "iqr": 6.5
+        },
+        "ai": {
+          "n": 7,
+          "mediana": 43.0,
+          "q1": 21.0,
+          "q3": 61.5,
+          "iqr": 40.5
+        }
+      },
+      "pares": [
+        {
+          "participante": "paulo",
+          "manual": 35.5,
+          "ai": 69.0,
+          "diferenca_ia_menos_manual": 33.5
+        },
+        {
+          "participante": "rafael",
+          "manual": 25.0,
+          "ai": 41.0,
+          "diferenca_ia_menos_manual": 16.0
+        },
+        {
+          "participante": "vitor",
+          "manual": 37.0,
+          "ai": 19.0,
+          "diferenca_ia_menos_manual": -18.0
+        }
+      ],
+      "wilcoxon": {
+        "W": 2.0,
+        "p": 0.75,
+        "n_pares": 3,
+        "r_rank_biserial": 0.3333
+      }
+    },
+    "mi_avg": {
+      "rotulo": "MI (exploratorio)",
+      "descritivos": {
+        "manual": {
+          "n": 7,
+          "mediana": 73.19,
+          "q1": 65.725,
+          "q3": 77.7,
+          "iqr": 11.975
+        },
+        "ai": {
+          "n": 7,
+          "mediana": 61.56,
+          "q1": 59.035,
+          "q3": 69.5,
+          "iqr": 10.465
+        }
+      },
+      "pares": [
+        {
+          "participante": "paulo",
+          "manual": 60.25,
+          "ai": 71.775,
+          "diferenca_ia_menos_manual": 11.525
+        },
+        {
+          "participante": "rafael",
+          "manual": 76.09,
+          "ai": 63.59,
+          "diferenca_ia_menos_manual": -12.5
+        },
+        {
+          "participante": "vitor",
+          "manual": 77.06,
+          "ai": 58.82,
+          "diferenca_ia_menos_manual": -18.24
+        }
+      ],
+      "wilcoxon": {
+        "W": 1.0,
+        "p": 0.5,
+        "n_pares": 3,
+        "r_rank_biserial": -0.6667
+      }
+    }
+  },
+  "holm_primario": {
+    "loc": 1.0,
+    "cc_avg": 1.0
+  }
+}

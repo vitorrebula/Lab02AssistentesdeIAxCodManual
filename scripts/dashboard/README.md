@@ -81,10 +81,13 @@ print(describe_dataset(df))   # colunas, tipos, não-nulos
 pares = build_paired_frame(df)  # um integrante por linha (manual/ai/diff)
 ```
 
-O notebook [`dashboard.ipynb`](dashboard.ipynb) já faz essa carga, organiza as
-seções RQ1/RQ2/RQ3 e **renderiza as figuras da #49** (também gravadas em
-`results/figures/`); só os testes estatísticos seguem marcados como
-`TODO(#45|#46|#47)`.
+O notebook [`dashboard.ipynb`](dashboard.ipynb) faz essa carga, organiza as
+seções de **RQ1 a RQ5**, renderiza as 11 figuras (também gravadas em
+`results/figures/`), imprime os testes estatísticos — lidos dos JSON de
+`dados/`, gerados por `scripts/analysis/` — e monta a tabela-síntese por RQ do
+Relatório Final. Executa de ponta a ponta com *Run All*; se algum
+`dados/rq*_resultados.json` estiver faltando, o próprio notebook roda o script
+de análise correspondente.
 
 ## Gráficos por RQ (issue #49)
 
@@ -256,11 +259,32 @@ Esperado nos dois casos: 5 trials, `manual` com 1 censurado e taxa de sucesso
 0,5, e dois avisos de junção (`exemplo_dois/kata9_ai` sem métricas,
 `exemplo_dois/kata7_ai` sem tempo).
 
-## Pendências das próximas issues
+## Figuras avançadas: uma por RQ (`plots_advanced.py`)
 
-- **#44** — gerar `dados/consolidado.csv` e registrar as decisões de outlier;
-  quando existir, este pipeline passa a usá-lo sem alteração de código (e as
-  figuras acompanham, porque saem do mesmo `build_dataset()`).
-- **#45/#46/#47** — preencher os testes estatísticos nas seções do notebook;
-  p-valor e tamanho de efeito entram como anotação nas figuras existentes.
-- **#50** — dashboard final + README de reprodução de ponta a ponta.
+`plots_advanced.py` complementa `plots.py` com **uma figura por questão de
+pesquisa**, cada uma no tipo de gráfico adequado à pergunta:
+
+| Arquivo | RQ | Tipo | Por que este tipo |
+|---|---|---|---|
+| `rq1_violino_tempo.png` | RQ1 | violino + pares | mostra a forma da distribuição (bimodal entre tratamentos), não só mediana/IQR |
+| `rq2_heatmap_testes.png` | RQ2 | heatmap integrante × kata | com todos os trials em 100%, um boxplot seria uma linha reta; o heatmap mostra o teto e a cobertura |
+| `rq3_boxplot_estrutura.png` | RQ3 | box plot (4 métricas) | comparar dois tratamentos no mesmo grupo, com os trials visíveis |
+| `rq4_dispersao_pearson.png` | RQ4 | dispersão + reta + `r` | relação entre duas medidas numéricas |
+| `rq5_bolhas_speedup.png` | RQ5 | bolhas | três dimensões por kata: dificuldade × speedup × nº de testes (cor = razão de LOC) |
+
+As estatísticas anotadas em RQ4 e RQ5 são **lidas** de
+`dados/rq4_resultados.json` e `dados/rq5_resultados.json` — o módulo não
+recalcula teste nenhum, para que figura, JSON, notebook e relatório não possam
+divergir. Rode os scripts de análise antes:
+
+```bash
+python scripts/analysis/rq4.py
+python scripts/analysis/rq5.py
+python scripts/dashboard/plots_advanced.py            # results/figures/
+python scripts/dashboard/plots_advanced.py --fig-dir /tmp/figs --dpi 300 --format pdf
+```
+
+A paleta dos dois tratamentos é a mesma de `plots.py` e passa nos seis checks de
+contraste/daltonismo (ΔE CVD 24,7; ΔE visão normal 33,6); o heatmap usa rampa
+sequencial de um único tom e as bolhas, rampa divergente com cinza neutro no
+meio.

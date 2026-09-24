@@ -68,6 +68,11 @@ COLUMN_ALIASES = {
     "testes_total": "tests_total",
     "total_testes": "tests_total",
     "sucesso": "success",
+    # metricas estaticas como saem do consolidado da #44 (pt-BR)
+    "cc_media": "cc_avg",
+    "cc_medio": "cc_avg",
+    "duplicacao_pct": "duplication_pct",
+    "mi_medio": "mi_avg",
     "observacoes": "notes",
     "notas": "notes",
 }
@@ -415,7 +420,10 @@ def build_dataset(timing_path: Path | str | None = None,
         sources["static_metrics"] = metrics.attrs.get("source", "?")
         metrics = metrics.copy()
         metrics["has_metrics"] = True
-        df = base.merge(metrics, on=KEYS, how="outer") if not base.empty else metrics
+        # _merge_prefer_left, e nao merge cru: consolidado (#44) e
+        # static_metrics compartilham nomes de coluna (loc, cc_total). Um merge
+        # cru geraria loc_x/loc_y e deixaria `loc` vazia, apagando H3c.
+        df = _merge_prefer_left(base, metrics) if not base.empty else metrics
     else:
         df = base
         df["has_metrics"] = False
@@ -466,9 +474,12 @@ def build_participant_summary(df: pd.DataFrame, agg: str = "median") -> pd.DataF
     summary["n_timed"] = grouped["has_timing"].apply(lambda s: int(s.fillna(False).sum()))
     summary["n_success"] = grouped["success"].apply(lambda s: int(s.fillna(False).sum()))
     summary["n_censored"] = grouped["censored"].apply(lambda s: int(s.fillna(False).sum()))
-    # denominador = trials com registro de tempo; um trial que so tem metricas
-    # estaticas nao conta como fracasso, conta como dado faltante.
-    summary["success_rate"] = (summary["n_success"] / summary["n_timed"]).where(summary["n_timed"] > 0)
+    # denominador = trials com DESFECHO conhecido (verde ou censura registrada).
+    # Trial sem desfecho -- tempo derivado e censura vazia, como os de Paulo --
+    # e dado faltante, nao fracasso: conta-lo no denominador derruba a taxa de
+    # sucesso para 0% onde o correto e "nao observado".
+    summary["n_outcome"] = grouped["success"].apply(lambda s: int(s.notna().sum()))
+    summary["success_rate"] = (summary["n_success"] / summary["n_outcome"]).where(summary["n_outcome"] > 0)
     return summary.round(4).reset_index()
 
 
@@ -503,8 +514,11 @@ def success_rate_by_treatment(df: pd.DataFrame) -> pd.DataFrame:
         "n_timed": grouped["has_timing"].apply(lambda s: int(s.fillna(False).sum())),
         "n_success": grouped["success"].apply(lambda s: int(s.fillna(False).sum())),
         "n_censored": grouped["censored"].apply(lambda s: int(s.fillna(False).sum())),
+        # desfecho conhecido: verde ou censura registrada. Ver a nota em
+        # build_participant_summary -- trial sem desfecho nao e fracasso.
+        "n_outcome": grouped["success"].apply(lambda s: int(s.notna().sum())),
     })
-    out["success_rate"] = (out["n_success"] / out["n_timed"]).where(out["n_timed"] > 0)
+    out["success_rate"] = (out["n_success"] / out["n_outcome"]).where(out["n_outcome"] > 0)
     return out.reset_index()
 
 

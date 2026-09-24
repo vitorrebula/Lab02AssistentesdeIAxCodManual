@@ -7,3 +7,4 @@ node_modules/
 .jscpd-tmp/
 results/timing_state.json
 .approval_tests_temp/
+.pytest_cache/

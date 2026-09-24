@@ -447,7 +447,8 @@ def success_rate_panel(ax: plt.Axes, df: pd.DataFrame, *,
     """Barras da taxa de sucesso por tratamento (variavel primaria de RQ2).
 
     Sucesso = trial que fechou no verde dentro do time-box. O denominador sao
-    os trials com registro de tempo (`n_timed`), conforme load_data.
+    os trials com DESFECHO conhecido (`n_outcome`), conforme load_data: trial
+    com tempo derivado e sem censura registrada e dado faltante, nao fracasso.
     """
     rates = success_rate_by_treatment(df)
     rates["treatment"] = rates["treatment"].astype("string")
@@ -463,13 +464,14 @@ def success_rate_panel(ax: plt.Axes, df: pd.DataFrame, *,
         ax.annotate(f"{_fmt(height, 1)}%", xy=(pos, height), xytext=(0, 7),
                     textcoords="offset points", ha="center", va="bottom",
                     fontsize=12, fontweight="bold", color=INK)
-        ax.annotate(f"{int(row['n_success'])}/{int(row['n_timed'])} trials no verde",
+        ax.annotate(f"{int(row['n_success'])}/{int(row['n_outcome'])} trials no verde",
                     xy=(pos, height), xytext=(0, 27), textcoords="offset points",
                     ha="center", va="bottom", fontsize=9, color=INK_SECONDARY)
 
     ax.set_xticks(positions)
     ax.set_xticklabels([
-        f"{TREATMENT_LABELS[t]}\nn = {int(rates.loc[t, 'n_timed'])} trials"
+        f"{TREATMENT_LABELS[t]}\nn = {int(rates.loc[t, 'n_outcome'])} com desfecho"
+        f" (de {int(rates.loc[t, 'n_trials'])})"
         f"\ncensurados: {int(rates.loc[t, 'n_censored'])}"
         for t in TREATMENT_ORDER])
     ax.set_xlim(-0.62, len(TREATMENT_ORDER) - 0.38)
@@ -597,7 +599,8 @@ def figure_rq2(df: pd.DataFrame) -> plt.Figure:
     _frame_text(
         fig,
         "RQ2 — Taxa de sucesso e corretude funcional por tratamento",
-        "Sucesso = trial que fechou no verde dentro do time-box de 35 min; denominador = trials com registro de tempo.\n"
+        "Sucesso = trial que fechou no verde dentro do time-box de 35 min; denominador = trials com desfecho conhecido\n"
+        "(os 4 trials de tempo derivado, sem censura registrada, entram como dado faltante, não como fracasso).\n"
         "Painel (b): caixa = IQR · linha = mediana · hastes = mínimo e máximo. A medida secundária só varia "
         f"entre trials censurados (nesta amostra: {int(_censored_mask(df).sum())}).",
         _source_note(df, extra),

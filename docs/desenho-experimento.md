@@ -22,11 +22,23 @@ Seguindo o formato de *goal template* de Wohlin et al.:
 
 ## 2. Questões de pesquisa
 
-| ID | Questão |
-|---|---|
-| **RQ1** (tempo) | O uso de assistente de IA altera o tempo até todos os testes de aceitação passarem (*time-to-green*) na resolução de uma kata? |
-| **RQ2** (defeitos) | O uso de assistente de IA altera a corretude funcional da solução, medida pela proporção de testes de aceitação que passam? |
-| **RQ3** (estrutura) | O uso de assistente de IA altera a qualidade estrutural do código produzido, medida por complexidade ciclomática, duplicação e tamanho (LOC)? |
+| ID | Questão | Origem |
+|---|---|---|
+| **RQ1** (tempo) | O uso de assistente de IA altera o tempo até todos os testes de aceitação passarem (*time-to-green*) na resolução de uma kata? | enunciado |
+| **RQ2** (defeitos) | O uso de assistente de IA altera a corretude funcional da solução, medida pela proporção de testes de aceitação que passam? | enunciado |
+| **RQ3** (estrutura) | O uso de assistente de IA altera a qualidade estrutural do código produzido, medida por complexidade ciclomática, duplicação e tamanho (LOC)? | enunciado |
+| **RQ4** (trade-off) | Existe associação entre o tempo até o verde e as métricas estruturais do código entregue (LOC, complexidade, densidade de complexidade, *Maintainability Index*)? | RQ extra |
+| **RQ5** (heterogeneidade) | O efeito do assistente de IA sobre o tempo é homogêneo entre as katas, ou depende da dificuldade intrínseca da tarefa? | diferencial do grupo |
+
+RQ1–RQ3 são as *Questions* do GQM do enunciado. **RQ4** formaliza a pergunta que
+o enunciado deixa implícita ao exigir LOC como variável de controle ("código
+gerado por IA pode ser mais verboso"): ela troca a comparação entre tratamentos
+por uma medida de **associação** entre tempo e estrutura, no mesmo conjunto de
+trials. **RQ5** é a contribuição própria do grupo: reanalisa os mesmos dados
+mudando a **unidade de agregação** de integrante para kata, para verificar se o
+efeito médio esconde variação por tipo de tarefa. As duas não exigem coleta
+nova — só análise nova — e cada uma tem documento próprio
+([analise-rq4.md](analise-rq4.md), [analise-rq5.md](analise-rq5.md)).
 
 ## 3. Hipóteses
 
@@ -81,6 +93,34 @@ comparações múltiplas em §7):
 - *Direção esperada (secundária):* nenhuma direção assumida; a hipótese
   informal do grupo é que o código gerado com IA tende a ser mais longo e mais
   duplicado, mas isso não é assumido no teste.
+
+### RQ4 — Associação entre tempo e estrutura (RQ extra)
+
+Aqui a unidade não é o par de tratamentos, e sim o **trial como ponto** no plano
+tempo × estrutura. Para cada métrica estrutural *M* ∈ {`loc`, `cc_avg`,
+`cc_total`, `densidade_cc`, `mi_avg`}:
+
+- **H4₀:** `ρ(time_to_green_min, M) = 0` — tempo e estrutura não se associam.
+- **H4₁:** `ρ(time_to_green_min, M) ≠ 0` (bicaudal, α = 0,05).
+- *Direção esperada (secundária):* nenhuma. O grupo considera plausível tanto
+  "mais tempo → mais código" quanto o inverso.
+- **Família de 5 hipóteses → correção de Holm-Bonferroni**, como em RQ3.
+- `densidade_cc = 100 × cc_total / loc` é derivada na análise: `cc_total` cresce
+  com o tamanho, então sem normalizar não se separa complexidade de tamanho.
+
+### RQ5 — Heterogeneidade do efeito por kata (diferencial)
+
+Unidade de agregação: a **kata** (não o integrante). Para cada kata resolvida
+nos dois tratamentos, `speedup = mediana(tempo sem IA) / mediana(tempo com IA)`
+e `dificuldade = mediana(tempo sem IA)`.
+
+- **H5₀:** o speedup é o mesmo em todas as katas e não se associa à dificuldade.
+- **H5₁:** o speedup varia entre katas e/ou cresce com a dificuldade
+  (bicaudal, α = 0,05).
+- **Declaradamente exploratória.** Como nenhum integrante resolveu a mesma kata
+  duas vezes (§5), o contraste por kata é **entre pessoas**: habilidade
+  individual e tratamento não são separáveis nesse corte. RQ5 mede a
+  **dispersão** do efeito e sua origem, não o efeito causal por kata.
 
 ## 4. Variáveis
 
@@ -237,8 +277,21 @@ Declarada antes da coleta, para não escolher o teste depois de ver os dados.
 - **Tamanho de efeito:** Cliff's delta (não paramétrico) ou Cohen's d quando
   o teste t for aplicável — reportado sempre, junto do p-valor.
 - **Comparações múltiplas:** dentro da família de RQ3 (3 hipóteses), correção
-  de **Holm-Bonferroni**. RQ1 e RQ2 são famílias separadas, com uma hipótese
-  primária cada.
+  de **Holm-Bonferroni**; idem na família de RQ4 (5 correlações). RQ1, RQ2 e
+  RQ5 são famílias separadas, com uma hipótese primária cada.
+- **RQ4 (associação):** **r de Pearson** (linear, com IC 95% por transformação
+  *z* de Fisher) e **ρ de Spearman** (monotônico, robusto a outliers e escala)
+  reportados em paralelo, global e **dentro de cada tratamento** — a
+  estratificação é obrigatória, porque tempo e tratamento são quase colineares
+  nesta amostra e uma correlação global pode ser só o efeito do tratamento
+  disfarçado.
+- **RQ5 (heterogeneidade):** descritivos de dispersão do speedup (mediana, IQR,
+  mín–máx, razão máx/mín) e **ρ de Spearman** entre dificuldade e speedup, com
+  o aviso de que, com 4 katas, o menor `p` bicaudal possível é 0,083.
+- **Análise de sensibilidade obrigatória em RQ4 e RQ5:** toda estatística é
+  reportada duas vezes — só com trials cronometrados (primária) e incluindo os
+  tempos derivados (sensibilidade). Se a conclusão muda entre as duas, ela é a
+  conclusão do dado frágil, não do experimento.
 - **Descritivos:** mediana e IQR por tratamento, mais o gráfico de pares
   (cada integrante como uma linha ligando `manual` → `ai`).
 - **Poder estatístico:** com o N de um grupo de laboratório, o estudo é
@@ -294,3 +347,6 @@ Declarada antes da coleta, para não escolher o teste depois de ver os dados.
 | `cc_avg`, `duplication_pct`, `loc`, `mi_avg` | `scripts/metrics/` | #5 |
 | Linguagem, IDE, assistente, convenção de diretórios | `docs/ambiente-experimento.md` | #6 |
 | Hipóteses, variáveis e desenho (este documento) | `docs/desenho-experimento.md` | #1 |
+| RQ4 — correlação tempo × estrutura (H4) | `scripts/analysis/rq4.py` → `dados/rq4_resultados.json` | RQ extra |
+| RQ5 — heterogeneidade por kata (H5) | `scripts/analysis/rq5.py` → `dados/rq5_resultados.json` | diferencial |
+| Figuras por RQ (violino, heatmap, box, dispersão, bolhas) | `scripts/dashboard/plots_advanced.py` | #49 + diferencial |

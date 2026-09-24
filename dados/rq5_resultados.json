@@ -1,0 +1,241 @@
+{
+  "questao": "RQ5 (diferencial) -- o efeito do assistente de IA sobre o tempo e homogeneo entre as katas, ou depende da dificuldade da tarefa?",
+  "hipoteses": {
+    "H5_0": "o speedup e o mesmo em todas as katas e nao se associa a dificuldade",
+    "H5_1": "o speedup varia entre katas e/ou cresce com a dificuldade (bicaudal, alfa = 0,05, exploratoria)"
+  },
+  "metricas": {
+    "speedup": "mediana(tempo sem IA) / mediana(tempo com IA), em vezes",
+    "ganho_min": "mediana(tempo sem IA) - mediana(tempo com IA), em minutos",
+    "dificuldade_proxy_min": "mediana(tempo sem IA) da kata, em minutos",
+    "razao_loc_ia_sobre_manual": "LOC mediana com IA / LOC mediana sem IA"
+  },
+  "aviso_pareamento": "contraste entre pessoas: ninguem resolveu a mesma kata nos dois tratamentos, entao habilidade individual e tratamento nao sao separaveis por kata",
+  "primario": {
+    "conjunto": "12 trials do plano de 4 katas (inclui os tempos derivados de Paulo)",
+    "n_trials": 12,
+    "katas": [
+      {
+        "kata": "kata1",
+        "rotulo": "Cesta de Compras",
+        "testes_total": 12,
+        "n_com_ia": 2,
+        "n_sem_ia": 1,
+        "tempo_mediano_com_ia": 0.6834,
+        "tempo_mediano_sem_ia": 0.4,
+        "dificuldade_proxy_min": 0.4,
+        "speedup": 0.5854,
+        "ganho_min": -0.2833,
+        "loc_mediana_com_ia": 51.0,
+        "loc_mediana_sem_ia": 37.0,
+        "razao_loc_ia_sobre_manual": 1.3784,
+        "usa_tempo_derivado": true,
+        "tempo_derivado_em": [
+          "sem IA"
+        ],
+        "integrantes_com_ia": [
+          "rafael",
+          "vitor"
+        ],
+        "integrantes_sem_ia": [
+          "paulo"
+        ]
+      },
+      {
+        "kata": "kata2",
+        "rotulo": "Escala de Plantoes",
+        "testes_total": 10,
+        "n_com_ia": 1,
+        "n_sem_ia": 2,
+        "tempo_mediano_com_ia": 0.2,
+        "tempo_mediano_sem_ia": 8.2,
+        "dificuldade_proxy_min": 8.2,
+        "speedup": 41.0,
+        "ganho_min": 8.0,
+        "loc_mediana_com_ia": 17.0,
+        "loc_mediana_sem_ia": 33.5,
+        "razao_loc_ia_sobre_manual": 0.5075,
+        "usa_tempo_derivado": true,
+        "tempo_derivado_em": [
+          "sem IA"
+        ],
+        "integrantes_com_ia": [
+          "vitor"
+        ],
+        "integrantes_sem_ia": [
+          "paulo",
+          "rafael"
+        ]
+      },
+      {
+        "kata": "kata4",
+        "rotulo": "Extrator de Tags",
+        "testes_total": 10,
+        "n_com_ia": 1,
+        "n_sem_ia": 2,
+        "tempo_mediano_com_ia": 10.8667,
+        "tempo_mediano_sem_ia": 15.4166,
+        "dificuldade_proxy_min": 15.4166,
+        "speedup": 1.4187,
+        "ganho_min": 4.5499,
+        "loc_mediana_com_ia": 64.0,
+        "loc_mediana_sem_ia": 44.5,
+        "razao_loc_ia_sobre_manual": 1.4382,
+        "usa_tempo_derivado": true,
+        "tempo_derivado_em": [
+          "com IA"
+        ],
+        "integrantes_com_ia": [
+          "paulo"
+        ],
+        "integrantes_sem_ia": [
+          "rafael",
+          "vitor"
+        ]
+      },
+      {
+        "kata": "kata5",
+        "rotulo": "Controle de Estoque",
+        "testes_total": 12,
+        "n_com_ia": 2,
+        "n_sem_ia": 1,
+        "tempo_mediano_com_ia": 0.3916,
+        "tempo_mediano_sem_ia": 10.7167,
+        "dificuldade_proxy_min": 10.7167,
+        "speedup": 27.363,
+        "ganho_min": 10.325,
+        "loc_mediana_com_ia": 48.5,
+        "loc_mediana_sem_ia": 37.0,
+        "razao_loc_ia_sobre_manual": 1.3108,
+        "usa_tempo_derivado": true,
+        "tempo_derivado_em": [
+          "com IA"
+        ],
+        "integrantes_com_ia": [
+          "paulo",
+          "rafael"
+        ],
+        "integrantes_sem_ia": [
+          "vitor"
+        ]
+      }
+    ],
+    "heterogeneidade": {
+      "n_katas": 4,
+      "speedup_min": 0.5854,
+      "speedup_max": 41.0,
+      "speedup_mediana": 14.3909,
+      "speedup_iqr": 29.5619,
+      "razao_max_min": 70.0376,
+      "katas_com_ia_mais_lenta": [
+        "kata1"
+      ],
+      "ganho_min_mediano": 6.275,
+      "spearman_dificuldade_x_speedup": {
+        "rho": 0.2,
+        "p": 0.8,
+        "n": 4,
+        "leitura": "rho > 0 indica que katas mais demoradas na mao sao as que mais se beneficiam da IA"
+      }
+    },
+    "katas_sem_contraste": []
+  },
+  "sensibilidade_so_cronometrados": {
+    "conjunto": "apenas trials com tempo cronometrado (exclui os 4 derivados)",
+    "n_trials": 10,
+    "katas": [
+      {
+        "kata": "kata2",
+        "rotulo": "Escala de Plantoes",
+        "testes_total": 10,
+        "n_com_ia": 1,
+        "n_sem_ia": 1,
+        "tempo_mediano_com_ia": 0.2,
+        "tempo_mediano_sem_ia": 8.1167,
+        "dificuldade_proxy_min": 8.1167,
+        "speedup": 40.5835,
+        "ganho_min": 7.9167,
+        "loc_mediana_com_ia": 17.0,
+        "loc_mediana_sem_ia": 33.0,
+        "razao_loc_ia_sobre_manual": 0.5152,
+        "usa_tempo_derivado": false,
+        "tempo_derivado_em": [],
+        "integrantes_com_ia": [
+          "vitor"
+        ],
+        "integrantes_sem_ia": [
+          "rafael"
+        ]
+      },
+      {
+        "kata": "kata5",
+        "rotulo": "Controle de Estoque",
+        "testes_total": 12,
+        "n_com_ia": 1,
+        "n_sem_ia": 1,
+        "tempo_mediano_com_ia": 0.2833,
+        "tempo_mediano_sem_ia": 10.7167,
+        "dificuldade_proxy_min": 10.7167,
+        "speedup": 37.8281,
+        "ganho_min": 10.4334,
+        "loc_mediana_com_ia": 23.0,
+        "loc_mediana_sem_ia": 37.0,
+        "razao_loc_ia_sobre_manual": 0.6216,
+        "usa_tempo_derivado": false,
+        "tempo_derivado_em": [],
+        "integrantes_com_ia": [
+          "rafael"
+        ],
+        "integrantes_sem_ia": [
+          "vitor"
+        ]
+      }
+    ],
+    "heterogeneidade": {
+      "n_katas": 2,
+      "speedup_min": 37.8281,
+      "speedup_max": 40.5835,
+      "speedup_mediana": 39.2058,
+      "speedup_iqr": 1.3777,
+      "razao_max_min": 1.0728,
+      "katas_com_ia_mais_lenta": [],
+      "ganho_min_mediano": 9.1751,
+      "spearman_dificuldade_x_speedup": {
+        "rho": null,
+        "p": null,
+        "n": 2,
+        "obs": "n < 3 katas ou variancia nula: correlacao nao definida"
+      }
+    },
+    "katas_sem_contraste": [
+      {
+        "kata": "kata1",
+        "rotulo": "Cesta de Compras",
+        "n_com_ia": 2,
+        "n_sem_ia": 0,
+        "motivo": "kata resolvida em apenas um tratamento; sem contraste possivel"
+      },
+      {
+        "kata": "kata3",
+        "rotulo": "Validador de Senha",
+        "n_com_ia": 1,
+        "n_sem_ia": 0,
+        "motivo": "kata resolvida em apenas um tratamento; sem contraste possivel"
+      },
+      {
+        "kata": "kata4",
+        "rotulo": "Extrator de Tags",
+        "n_com_ia": 0,
+        "n_sem_ia": 2,
+        "motivo": "kata resolvida em apenas um tratamento; sem contraste possivel"
+      },
+      {
+        "kata": "kata6",
+        "rotulo": "Maquina de Catraca",
+        "n_com_ia": 0,
+        "n_sem_ia": 1,
+        "motivo": "kata resolvida em apenas um tratamento; sem contraste possivel"
+      }
+    ]
+  }
+}

@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
-"""Reproduz a analise pareada da RQ3 a partir de results/static_metrics.csv."""
+"""Reproduz a analise pareada da RQ3 a partir de results/static_metrics.csv.
+
+Alem do relatorio em texto, grava dados/rq3_resultados.json, para que o
+notebook do dashboard e o Relatorio Final citem exatamente os mesmos numeros
+(mesma politica de RQ1, RQ2, RQ4 e RQ5).
+"""
 
 import argparse
 import csv
+import json
 from collections import defaultdict
 from pathlib import Path
 
@@ -78,31 +84,57 @@ def holm(pvalues):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=Path("results/static_metrics.csv"))
+    parser.add_argument("--output", type=Path, default=Path("dados/rq3_resultados.json"))
     args = parser.parse_args()
     rows = load(args.input)
     print(f"Trials: {len(rows)}; participantes: {len(set(r['participant'] for r in rows))}")
     print("Quartis: percentis 25/50/75 com interpolacao linear (NumPy).")
     tests = {}
+    results = {
+        "questao": ("RQ3 -- o uso de assistente de IA altera a qualidade estrutural do "
+                    "codigo (complexidade, duplicacao, tamanho)?"),
+        "n_trials": len(rows),
+        "n_participantes": len(set(r["participant"] for r in rows)),
+        "familia_primaria": ["cc_avg", "duplication_pct", "loc"],
+        "metricas": {},
+    }
     for metric, label in METRICS.items():
         print(f"\n{label}")
+        entry = {"rotulo": label, "descritivos": {}, "pares": [], "wilcoxon": None}
         for treatment in ("manual", "ai"):
             n, q1, median, q3 = summary(rows, metric, treatment)
             print(f"  {treatment}: n={n}, mediana={median:.2f}, Q1={q1:.2f}, "
                   f"Q3={q3:.2f}, IQR={q3-q1:.2f}")
+            entry["descritivos"][treatment] = {
+                "n": n, "mediana": round(float(median), 4), "q1": round(float(q1), 4),
+                "q3": round(float(q3), 4), "iqr": round(float(q3 - q1), 4)}
         paired = pairs(rows, metric)
         print("  pares (participante: manual -> IA; diferenca IA-manual):")
         for name, manual, ai in paired:
             print(f"    {name}: {manual:.2f} -> {ai:.2f}; {ai-manual:+.2f}")
+            entry["pares"].append({"participante": name, "manual": round(manual, 4),
+                                   "ai": round(ai, 4), "diferenca_ia_menos_manual": round(ai - manual, 4)})
         test = exact_test(paired)
         if test:
             statistic, p, n, effect = test
             print(f"  Wilcoxon exato bicaudal: W={statistic:.2f}, n={n}, p={p:.3f}, "
                   f"r_rb={effect:+.3f}")
+            entry["wilcoxon"] = {"W": statistic, "p": round(p, 4), "n_pares": n,
+                                 "r_rank_biserial": round(effect, 4)}
             if metric in ("cc_avg", "duplication_pct", "loc"):
                 tests[metric] = p
         else:
             print("  Wilcoxon nao aplicavel (diferencas nulas/pares insuficientes)")
-    print("\nHolm (familia primaria testavel):", holm(tests))
+            entry["wilcoxon_obs"] = "nao aplicavel: diferencas nulas ou pares insuficientes"
+        results["metricas"][metric] = entry
+
+    adjusted = holm(tests)
+    print("\nHolm (familia primaria testavel):", adjusted)
+    results["holm_primario"] = {k: round(v, 4) for k, v in adjusted.items()}
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(results, indent=2, ensure_ascii=False) + "\n",
+                           encoding="utf-8")
+    print(f"-> {args.output}")
 
 
 if __name__ == "__main__":
