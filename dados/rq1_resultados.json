@@ -1,0 +1,49 @@
+{
+  "n_core": 12,
+  "n_eligible": 8,
+  "n_unverified": 4,
+  "same_person_kata_pairs": 0,
+  "descritivos": {
+    "com IA": {
+      "n": 4,
+      "censurados": 0,
+      "q1": 0.2,
+      "mediana": 0.24165,
+      "q3": 0.50415,
+      "iqr": 0.30415,
+      "metodo": "percentis lineares (sem censura)"
+    },
+    "sem IA": {
+      "n": 4,
+      "censurados": 0,
+      "q1": 10.05417,
+      "mediana": 10.70835,
+      "q3": 13.07085,
+      "iqr": 3.01668,
+      "metodo": "percentis lineares (sem censura)"
+    }
+  },
+  "pares": [
+    {
+      "integrante": "rafael",
+      "ia_min": 0.24165,
+      "manual_min": 9.40835,
+      "diferenca_ia_menos_manual": -9.1667
+    },
+    {
+      "integrante": "vitor",
+      "ia_min": 0.68335,
+      "manual_min": 15.425,
+      "diferenca_ia_menos_manual": -14.74165
+    }
+  ],
+  "omitidos_wilcoxon": {
+    "paulo": "censura ou tempo nao observado"
+  },
+  "wilcoxon": {
+    "W": 0.0,
+    "p": 0.5,
+    "n_pares": 2,
+    "r_rank_biserial": -1.0
+  }
+}
