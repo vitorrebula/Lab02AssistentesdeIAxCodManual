@@ -1,0 +1,83 @@
+{
+  "n_planejados": 12,
+  "n_verificados_no_trial": 8,
+  "n_conferidos_posteriormente": 4,
+  "descritivos_verificados": {
+    "com IA": {
+      "n_trials": 4,
+      "q1_pct": 100.0,
+      "mediana_pct": 100.0,
+      "q3_pct": 100.0,
+      "iqr_pontos_percentuais": 0.0,
+      "falhas_absolutas_soma": 0,
+      "falhas_por_trial": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "sem IA": {
+      "n_trials": 4,
+      "q1_pct": 100.0,
+      "mediana_pct": 100.0,
+      "q3_pct": 100.0,
+      "iqr_pontos_percentuais": 0.0,
+      "falhas_absolutas_soma": 0,
+      "falhas_por_trial": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "pares_por_integrante": [
+    {
+      "integrante": "rafael",
+      "ia_pct": 100.0,
+      "manual_pct": 100.0,
+      "diferenca_ia_menos_manual": 0.0
+    },
+    {
+      "integrante": "vitor",
+      "ia_pct": 100.0,
+      "manual_pct": 100.0,
+      "diferenca_ia_menos_manual": 0.0
+    }
+  ],
+  "wilcoxon": {
+    "W": 0.0,
+    "p": 1.0,
+    "n_pares": 2,
+    "n_diferencas_nao_nulas": 0,
+    "resultado_degenerado": true,
+    "decisao_alpha_0_05": "nao_rejeitar_H0"
+  },
+  "descritivos_posteriores": {
+    "com IA": {
+      "n_trials": 2,
+      "q1_pct": 100.0,
+      "mediana_pct": 100.0,
+      "q3_pct": 100.0,
+      "iqr_pontos_percentuais": 0.0,
+      "falhas_absolutas_soma": 0,
+      "falhas_por_trial": [
+        0,
+        0
+      ]
+    },
+    "sem IA": {
+      "n_trials": 2,
+      "q1_pct": 100.0,
+      "mediana_pct": 100.0,
+      "q3_pct": 100.0,
+      "iqr_pontos_percentuais": 0.0,
+      "falhas_absolutas_soma": 0,
+      "falhas_por_trial": [
+        0,
+        0
+      ]
+    }
+  }
+}

@@ -75,3 +75,9 @@ A comparação de tempo até o verde, o pareamento por integrante, o Wilcoxon e
 o tratamento de censura estão em [docs/analise-rq1.md](docs/analise-rq1.md).
 Execute `python scripts/analysis/rq1.py` para reproduzir os resultados em
 `dados/rq1_resultados.json`.
+
+## Análise da RQ2
+
+Ver [docs/analise-rq2.md](docs/analise-rq2.md) para a taxa percentual de testes
+passando, falhas absolutas e Wilcoxon pareado. Execute
+`python scripts/analysis/rq2.py` para gerar `dados/rq2_resultados.json`.
