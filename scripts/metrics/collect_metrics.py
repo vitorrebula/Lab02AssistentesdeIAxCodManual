@@ -8,6 +8,7 @@ cada trial, e consolida o resultado em uma tabela CSV (uma linha por trial).
 import argparse
 import csv
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -24,7 +25,8 @@ TRIAL_DIR_RE = re.compile(r"^(?P<kata>.+)_(?P<treatment>ai|manual)$")
 
 FIELDNAMES = [
     "participant", "kata", "treatment", "files", "loc", "sloc",
-    "cc_avg", "cc_total", "mi_avg", "duplication_pct", "collected_at",
+    "cc_avg", "cc_total", "mi_avg", "duplication_pct", "coverage_pct",
+    "collected_at",
 ]
 
 
@@ -42,6 +44,7 @@ def find_trials(trials_root: Path):
                 "participant": participant_dir.name,
                 "kata": match.group("kata"),
                 "treatment": match.group("treatment"),
+                "trial_dir": trial_dir,
                 "src_dir": src_dir,
             })
     return trials
@@ -103,11 +106,51 @@ def jscpd_duplication(src_dir: Path):
         return round(report.get("statistics", {}).get("total", {}).get("percentage", 0.0), 2)
 
 
+def test_coverage(trial_dir: Path, src_dir: Path):
+    """% de statements de src_dir exercitados pela suite de aceitacao do trial.
+
+    Roda via subprocesso (nao pytest.main) para nao herdar plugins/config do
+    processo que esta coletando as metricas, e para isolar coverage_file e
+    report_file num diretorio temporario que nao suja o repositorio.
+    """
+    tests_dir = trial_dir / "tests"
+    if not tests_dir.is_dir():
+        print(f"aviso: sem diretorio de testes em {trial_dir}; coverage=0.0", file=sys.stderr)
+        return 0.0
+    with tempfile.TemporaryDirectory() as tmp:
+        report_path = Path(tmp) / "coverage.json"
+        env = {
+            **os.environ,
+            "PYTHONPATH": str(src_dir.resolve()),
+            "COVERAGE_FILE": str(Path(tmp) / ".coverage"),
+        }
+        cmd = [
+            sys.executable, "-m", "pytest", "tests", "-q",
+            "-o", "python_files=test_*.py teste_*.py *_test.py",
+            f"--cov={src_dir.resolve()}",
+            f"--cov-report=json:{report_path}",
+        ]
+        try:
+            subprocess.run(cmd, cwd=trial_dir, env=env, check=True, capture_output=True, text=True)
+        except FileNotFoundError:
+            print("aviso: pytest-cov nao encontrado (pip install pytest-cov); coverage=0.0", file=sys.stderr)
+            return 0.0
+        except subprocess.CalledProcessError as exc:
+            detail = (exc.stdout or "") + (exc.stderr or "")
+            print(f"aviso: coverage falhou em {trial_dir}: {detail.strip()[-500:]}", file=sys.stderr)
+            return 0.0
+        if not report_path.exists():
+            return 0.0
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        return round(report.get("totals", {}).get("percent_covered", 0.0), 2)
+
+
 def collect(trials_root: Path):
     rows = []
     for trial in find_trials(trials_root):
         metrics = radon_metrics(trial["src_dir"])
         metrics["duplication_pct"] = jscpd_duplication(trial["src_dir"])
+        metrics["coverage_pct"] = test_coverage(trial["trial_dir"], trial["src_dir"])
         rows.append({
             "participant": trial["participant"],
             "kata": trial["kata"],
@@ -147,7 +190,7 @@ def main():
     for row in rows:
         print(f"  {row['participant']:<14} {row['kata']:<12} {row['treatment']:<7} "
               f"LOC={row['loc']:<5} CC_avg={row['cc_avg']:<6} MI_avg={row['mi_avg']:<7} "
-              f"dup%={row['duplication_pct']}")
+              f"dup%={row['duplication_pct']:<6} cov%={row['coverage_pct']}")
 
 
 if __name__ == "__main__":

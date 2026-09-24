@@ -12,7 +12,7 @@ FIELDS = [
     "integrante", "kata", "tratamento", "tempo_min", "censurado",
     "testes_passando", "testes_total", "status", "fonte_tempo",
     "fonte_testes", "no_plano_4_katas", "cc_media", "cc_total",
-    "duplicacao_pct", "loc", "mi_medio",
+    "duplicacao_pct", "loc", "mi_medio", "cobertura_pct",
 ]
 OUTLIER_FIELDS = [
     "integrante", "kata", "tratamento", "campo", "valor", "limite_inferior",
@@ -118,7 +118,7 @@ def consolidate(root):
         notes = record.get("notes", "").lower()
         if status == "green" and ("re-registro" in notes or "reconstitu" in notes):
             source = "reconstituido"
-        for field in ("cc_avg", "cc_total", "duplication_pct", "loc", "mi_avg"):
+        for field in ("cc_avg", "cc_total", "duplication_pct", "loc", "mi_avg", "coverage_pct"):
             number(metric[field], field, k)
         rows.append({
             "integrante": k[0], "kata": k[1], "tratamento": "com IA" if k[2] == "ai" else "sem IA",
@@ -129,7 +129,7 @@ def consolidate(root):
             "no_plano_4_katas": "true" if k[1] in common else "false",
             "cc_media": metric["cc_avg"], "cc_total": metric["cc_total"],
             "duplicacao_pct": metric["duplication_pct"], "loc": metric["loc"],
-            "mi_medio": metric["mi_avg"],
+            "mi_medio": metric["mi_avg"], "cobertura_pct": metric["coverage_pct"],
         })
 
     for person in participants:
