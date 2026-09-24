@@ -1,0 +1,15 @@
+integrante,kata,tratamento,tempo_min,censurado,testes_passando,testes_total,status,fonte_tempo,fonte_testes,no_plano_4_katas,cc_media,cc_total,duplicacao_pct,loc,mi_medio
+paulo,kata1,sem IA,0.4000,,12,12,derived_from_reference,derivado_ou_autodeclarado,verificacao_posterior,true,3.6,18,0.0,37,47.31
+paulo,kata2,sem IA,8.2833,,10,10,derived_from_reference,derivado_ou_autodeclarado,verificacao_posterior,true,7.0,7,0.0,34,73.19
+paulo,kata4,com IA,10.8667,,10,10,derived_from_reference,derivado_ou_autodeclarado,verificacao_posterior,true,2.5,5,0.0,64,71.07
+paulo,kata5,com IA,0.5000,,12,12,derived_from_reference,derivado_ou_autodeclarado,verificacao_posterior,true,2.5,10,0.0,74,72.48
+rafael,kata1,com IA,0.2000,false,12,12,green,cronometro_ou_reconstituido,registro_trial,true,2.6,13,0.0,59,67.93
+rafael,kata2,sem IA,8.1167,false,10,10,green,reconstituido,registro_trial,true,8.0,8,0.0,33,62.94
+rafael,kata4,sem IA,10.7000,false,10,10,green,cronometro_ou_reconstituido,registro_trial,true,2.0,4,0.0,17,89.24
+rafael,kata5,com IA,0.2833,false,12,12,green,cronometro_ou_reconstituido,registro_trial,true,2.5,10,0.0,23,59.25
+vitor,kata1,com IA,1.1667,false,12,12,green,cronometro_ou_reconstituido,registro_trial,true,3.0,15,0.0,43,49.62
+vitor,kata2,com IA,0.2000,false,10,10,green,cronometro_ou_reconstituido,registro_trial,true,7.0,7,0.0,17,61.56
+vitor,kata3,com IA,0.1333,false,11,11,green,cronometro_ou_reconstituido,registro_trial,false,13.0,13,0.0,19,58.82
+vitor,kata4,sem IA,20.1333,false,10,10,green,cronometro_ou_reconstituido,registro_trial,true,2.75,11,0.0,72,78.34
+vitor,kata5,sem IA,10.7167,false,12,12,green,cronometro_ou_reconstituido,registro_trial,true,2.5,10,0.0,37,68.51
+vitor,kata6,sem IA,10.7500,false,9,9,green,cronometro_ou_reconstituido,registro_trial,false,6.0,6,0.0,28,77.06

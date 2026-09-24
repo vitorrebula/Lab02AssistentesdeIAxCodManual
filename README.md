@@ -77,3 +77,30 @@ python scripts/dashboard/load_data.py \
 O notebook [scripts/dashboard/dashboard.ipynb](scripts/dashboard/dashboard.ipynb)
 faz essa carga e organiza as seções RQ1/RQ2/RQ3; os gráficos (#49) e os testes
 estatísticos (#45/#46/#47) estão como esqueleto marcado com `TODO`.
+
+## Análise da RQ3
+
+Ver [docs/analise-rq3.md](docs/analise-rq3.md) para a comparação entre
+tratamentos, normalização por LOC, mediana/IQR, Wilcoxon pareado e limitações.
+Para reproduzir os cálculos: `python -m pip install -r scripts/analysis/requirements.txt`
+e `python scripts/analysis/rq3.py`.
+
+## Consolidação e revisão da S02
+
+Execute `python scripts/analysis/consolidate_s02.py` para gerar
+`dados/consolidado.csv` e `dados/outliers.csv` a partir dos registros brutos.
+A cobertura, a proveniência dos tempos, a censura e as decisões sobre cada
+outlier estão em [docs/revisao-dados-s02.md](docs/revisao-dados-s02.md).
+
+## Análise da RQ1
+
+A comparação de tempo até o verde, o pareamento por integrante, o Wilcoxon e
+o tratamento de censura estão em [docs/analise-rq1.md](docs/analise-rq1.md).
+Execute `python scripts/analysis/rq1.py` para reproduzir os resultados em
+`dados/rq1_resultados.json`.
+
+## Análise da RQ2
+
+Ver [docs/analise-rq2.md](docs/analise-rq2.md) para a taxa percentual de testes
+passando, falhas absolutas e Wilcoxon pareado. Execute
+`python scripts/analysis/rq2.py` para gerar `dados/rq2_resultados.json`.
